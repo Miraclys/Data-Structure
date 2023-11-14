@@ -529,9 +529,9 @@ Fleury's Algorithm(佛罗莱)算法 此时经常有一种方法和它相提并�
 
 1. 手写一个 List
 
-见 `List.cpp` `LinkList.h` `LinkList.cpp` 
-其中，`List.cpp` 将 Node 和 List 两个类分开写了，所以在 List 中使用 Node 的时候要写成 `Node<T>*` 的形式。
-但是在 `LinkList.h` 中，将 Node 写在了 List 类里面，此时就不需要在 Node 后面额外加 `<T>` 了，这种形式也是我们更加推荐的。
+    见 `List.cpp` `LinkList.h` `LinkList.cpp` 
+    其中，`List.cpp` 将 Node 和 List 两个类分开写了，所以在 List 中使用 Node 的时候要写成 `Node<T>*` 的形式。
+    但是在 `LinkList.h` 中，将 Node 写在了 List 类里面，此时就不需要在 Node 后面额外加 `<T>` 了，这种形式也是我们更加推荐的。
 
 2. 手写一个面向对象的快速排序
 `quick_sort.cpp` 是一个递归版本的，但是我们一般不鼓励写递归，会比较慢
