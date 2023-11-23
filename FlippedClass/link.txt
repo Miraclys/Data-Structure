@@ -1,0 +1,14 @@
+1. https://www.cse.wustl.edu/~taoju/cse546/lectures/Lecture21_rangequery_2d.pdf
+
+2. https://www.cse.wustl.edu/~taoju/cse546/index.htm#project
+
+3. Computational Geometry: Algorithms and Applications
+
+4. 有什么好的beamer主题和配色方案？ - Dwzb的回答 - 知乎 
+    https://www.zhihu.com/question/29676847/answer/396667384
+
+5. https://en.wikipedia.org/wiki/Range_tree
+
+6. https://www.cnblogs.com/-Wallace-/p/kdt-time.html K-D Tree 时间复杂度证明
+
+7. https://www.luogu.com.cn/blog/van/qian-tan-pian-xu-wen-ti-yu-k-d-tree
