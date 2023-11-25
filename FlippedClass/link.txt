@@ -12,3 +12,8 @@
 6. https://www.cnblogs.com/-Wallace-/p/kdt-time.html K-D Tree 时间复杂度证明
 
 7. https://www.luogu.com.cn/blog/van/qian-tan-pian-xu-wen-ti-yu-k-d-tree
+
+8. https://www.cs.umd.edu/class/fall2020/cmsc420-0201/ 课程的网站，很多资料里面
+
+9. https://doc.cgal.org/latest/SearchStructures/index.html#secrange_tree_ex
+
