@@ -17,3 +17,6 @@
 
 9. https://doc.cgal.org/latest/SearchStructures/index.html#secrange_tree_ex
 
+10. https://blog.csdn.net/qq_42101694/article/details/122791377
+
+11. https://walker68145.github.io/post/ti-zui-yang-shu-yu-k-dtree/ 关于 kd 树的一些题目，包括 kd 树的重构

@@ -134,6 +134,8 @@ After creation of the tree, further insertions or deletions of data items are di
 
 这个名字的由来，或者说，有没有比较直观的解释？
 
+还在哪些算法中使用到了用来优化算法
+
 #### 如果不是正交查询？
 
 #### 二维数点
@@ -141,3 +143,5 @@ After creation of the tree, further insertions or deletions of data items are di
 https://blog.csdn.net/qq_30320171/article/details/129787418
 
 #### 可持久化的二维数点
+
+#### k-d 树解决 KNN 和数点的复杂度一致吗
