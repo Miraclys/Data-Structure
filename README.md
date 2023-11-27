@@ -20,8 +20,8 @@ TO DO
 
 2. 快慢指针(Floyd's Cycle Detection Algorithm)，使用同余方程得到 $a + kp$ 和 $b + kq \pmod{n}$，其中 a b 分别是两个指针进入环的初始步长，k 是一个未知常量，p q 分别是两个指针的步长，n 是环长，得到 $b - a \equiv k(p - q)$ 它们的步长差值为 1 的时候可以始终保证同余。
 
-对于快慢指针法，我们一般是设快指针的步长为 2，慢指针的步长为 1，如果链表中有环，那么快指针始终会追上慢指针，如果没有环，快指针会先到达链表的末尾。
-下面是一段 Python 程序演示：
+    对于快慢指针法，我们一般是设快指针的步长为 2，慢指针的步长为 1，如果链表中有环，那么快指针始终会追上慢指针，如果没有环，快指针会先到达链表的末尾。
+    下面是一段 Python 程序演示：
 
 ```
 class ListNode:
@@ -53,7 +53,7 @@ def hasCycle(head):
 
 可以看下面的图片来理解，因为快指针比满指针路程多一倍，第一次相遇的时候又是快指针比慢指针多走了一个环的长度，所以一个环的长度就是现在慢指针所走过的长度，所以 ST 和 AT 的长度是相等的，所以第一个相遇的点就是入环点。
 
-{% asset_img 入环点.png %}
+{% asset_img 入环点.png 入环点 %}
 
 ##### Floyd 判圈算法和 Brent 判圈算法
 
@@ -160,8 +160,9 @@ lambda 函数的书写结构：
     // Lambda函数体
 }
 ```
-<!-- 
+
 函数指针应用？lambda 函数？ 
+
 ```
 struct FUN {
     成员变量
@@ -169,9 +170,9 @@ struct FUN {
 }
 FUN fun;
 fun() 伪装为一个函数？
-``` -->
+```
 
-<!-- STL 中的**迭代子类**？？ -->
+STL 中的**迭代子类**？？
 
 #### 分而治之 divide-and-conquer
 
@@ -594,24 +595,82 @@ Fleury's Algorithm(佛罗莱)算法 此时经常有一种方法和它相提并�
 
 桥和割边的关系？
 
-#### 
+#### 最短路
+
+大概有三种版本最短路，单源-单源、单源-多源、多源-多源。
+
+并且单源-多源是其他两个版本的基础，Dijkstra 就是解决这个问题的一个优秀算法。实际上，对于单源-单源的最短路，很多人还是一样使用 Dijkstra 算法。
+
+##### Dijkstra 算法遇到负权边
+
+后来人们想了很多种算法对于 Dijkstra 进行改进。其中 Bellman-Ford 就是一种。
+
+##### Bellman-Ford 算法
+
+因为是简单路径，每一个顶点最多出现一次，所以最多 n - 1 条边。本质上，Bellman-Ford 算法更新一次，就是从 s 出发，经过边数不超过 k 的最短路(其中，k 是当前迭代到的次数)。
+
+事实上，Bellman-Ford 算法遇到负环还是可能会绕圈的(TO DO)，所以人们想可不可以使用 Bellman-Ford 算法来判断是否有负环。
+
+但是实际上，Bellman-Ford 算法是与 source 有关的算法。检测负环而又是和 source 无关的算法。所以，为什么要使用一个与 source 有关的算法来解决与 source 无关的问题呢？
+
+##### Floyd-Warshall 算法
+
+同样适用于负权重的图，并且解决的是多源-多源的问题。
+
+Floyd 的最短路径估计？就是输出路径，记录最后一次 i、j 对更新的 k，然后递归输出路径即可。见 `FloydPath.cpp`。source 变多可以使得算法更快？
+
+#### Johnson 算法
+
+##### 负环的检测
+
+#### 图的闭包问题
+
+无向图和有向图的算法，可以使用 bitset 优化？
+
+#### Graph Traversal
+
+之前讲过并查集，可以做很多事情。查询次数越多越好？复杂度可以近似为 O(1) ？
+
+dfs 一般来说要比 bfs 更加实用。bfs 遍历的时候，进栈的会越来越多，所以可能会出现一个内存问题。
+
+无向图连通图：任何两个点之间都有路径
+
+每一个节点都有两个编号，一个是进栈的编号，一个是出栈的编号。
+
+tree edge back edge forward edge cross edge
+
+深度搜索隐含了一个栈，所以每一个点都有入栈和出栈所以每一个点都有两个编号。我们能不能使用编号对于图上的点进行分类？
+
+应用：垃圾回收、Mark-sweep algorithm
+
+强联通分支(Strong Connected Component)：针对有向图
+
+如何确定已经找到了所有的 SCC ？如果把已经找到的 SCC 抽象问一个点，那么再形成的新图一定是没有环的。
+
+Kosaraju-Sharir algorithm
+
+Tarjan algorithm
+
+两个图是否是等价的？
+
+一个图能不能摊为平面图？
 
 ### 作业
 
 1. 手写一个 List
 
-见 `List.cpp` `LinkList.h` `LinkList.cpp` 
-其中，`List.cpp` 将 Node 和 List 两个类分开写了，所以在 List 中使用 Node 的时候要写成 `Node<T>*` 的形式。
-但是在 `LinkList.h` 中，将 Node 写在了 List 类里面，此时就不需要在 Node 后面额外加 `<T>` 了，这种形式也是我们更加推荐的。
+    见 `List.cpp` `LinkList.h` `LinkList.cpp` 
+    其中，`List.cpp` 将 Node 和 List 两个类分开写了，所以在 List 中使用 Node 的时候要写成 `Node<T>*` 的形式。
+    但是在 `LinkList.h` 中，将 Node 写在了 List 类里面，此时就不需要在 Node 后面额外加 `<T>` 了，这种形式也是我们更加推荐的。
 
 2. 手写一个面向对象的快速排序
 
-`quick_sort.cpp` 是一个递归版本的，但是我们一般不鼓励写递归，会比较慢
-其中，需要注意`函数对象`的写法。
+    `quick_sort.cpp` 是一个递归版本的，但是我们一般不鼓励写递归，会比较慢
+    其中，需要注意`函数对象`的写法。
 
-非递归版本：
+    非递归版本：
 
-**双指针前移法**，感觉很强，短小精悍，见 `QuickSortNor.cpp`，使用自己手写的栈，实现了对于类的非递归版本的快速排序。
+    **双指针前移法**，感觉很强，短小精悍，见 `QuickSortNor.cpp`，使用自己手写的栈，实现了对于类的非递归版本的快速排序。
 
 3.  
 <!-- 基于自己写的链表
@@ -619,78 +678,78 @@ Fleury's Algorithm(佛罗莱)算法 此时经常有一种方法和它相提并�
 放在不同的文件中
 想规范一下大家写代码习惯 -->
 
-在这次的作业中，注意：
+    在这次的作业中，注意：
 
-我们在使用了模板类的 LinkList 中添加重载输出的友元函数。因为我们毕竟添加的是一个友元函数，是一个函数，所以我们需要在 LinkList 中再写一个 template<class E>
+    我们在使用了模板类的 LinkList 中添加重载输出的友元函数。因为我们毕竟添加的是一个友元函数，是一个函数，所以我们需要在 LinkList 中再写一个 template<class E>
 
-```
-template<class U>
-friend std::ostream& operator<<(std::ostream& os, const LinkList<U>& list);
-```
+    ```
+    template<class U>
+    friend std::ostream& operator<<(std::ostream& os, const LinkList<U>& list);
+    ```
 
-其中，ostream 是一种返回类型。
+    其中，ostream 是一种返回类型。
 
 4. 
 
 - 以非递归的形式实现汉诺塔，并且尽量少内存。
-见 `Hanoi.cpp`
+    见 `Hanoi.cpp`
 
 - 写最大公约数递推的程序。给定两个整数，写出最大公约数的标准形式，d = ax + by，x y 可能是负数 我们规定 |x| < |y| 此时取值是唯一的。
-见 `exgcd.cpp`
+    见 `exgcd.cpp`
 
-上面的扩展欧几里得是递归实现的，但是我们还是追求非递归版本，讲解参考下面的博客：
+    上面的扩展欧几里得是递归实现的，但是我们还是追求非递归版本，讲解参考下面的博客：
 
-https://www.cnblogs.com/zbhfz/p/11267438.html
+    https://www.cnblogs.com/zbhfz/p/11267438.html
 
-{%asset_img 非递归扩展欧几里得.png%}
+    {%asset_img 非递归扩展欧几里得.png%}
 
 5. 非递归全排列
 
-康托展开
+    康托展开
 
-非递归，根据排列规律输出所有的排列
+    非递归，根据排列规律输出所有的排列
 
-见 `CantorExpansion.cpp` `permutation.cpp` `next_permutation.cpp` 
+    见 `CantorExpansion.cpp` `permutation.cpp` `next_permutation.cpp` 
 
 6. 求斐波那契数列通项
 
-特征根法怎么来的呢？
+    特征根法怎么来的呢？
 
-人们发现特征根对于分解递推式子是有帮助的
+    人们发现特征根对于分解递推式子是有帮助的
 
-对于一个具体的 n 输出 F_n
+    对于一个具体的 n 输出 F_n
 
-矩阵加速递推，见 `Fibonacci.cpp`
+    矩阵加速递推，见 `Fibonacci.cpp`
 
 7. 写一写二叉树的数据结构，支持几种遍历方式
 
-层次 先序 中序 后序 每一个节点都不保存父亲节点 可以使用堆栈来实现 不要递归
+    层次 先序 中序 后序 每一个节点都不保存父亲节点 可以使用堆栈来实现 不要递归
 
-如果给出了不同遍历方式得到的结果，如何获得原来树的结构？
+    如果给出了不同遍历方式得到的结果，如何获得原来树的结构？
 
-二叉树有一个函数，传入两个字符串序列，是不是都能恢复成原来的二叉树结构？最后输出括号表示方式的形式。
+    二叉树有一个函数，传入两个字符串序列，是不是都能恢复成原来的二叉树结构？最后输出括号表示方式的形式。
 
-见 `ParseTreeSequence.cpp` 和 `GetTreeOrderNor.cpp`
+    见 `ParseTreeSequence.cpp` 和 `GetTreeOrderNor.cpp`
 
-还有一种比较简洁的方式可以参考 于老师代码中的 `parseTree.cpp`
+    还有一种比较简洁的方式可以参考 于老师代码中的 `parseTree.cpp`
 
 8. 如何形成中序遍历意义下的线索二叉树(双向的)
 
-并且用自己的线索二叉树再次实现双向遍历
+    并且用自己的线索二叉树再次实现双向遍历
 
-前序和后序不完美
+    前序和后序不完美
 
-线索二叉树的必要？历史的产物？
+    线索二叉树的必要？历史的产物？
 
 9. 自己搜索霍夫曼树的题目
 
-多叉树到二叉树的转化？
+    多叉树到二叉树的转化？
 
-Weighted Path Length of Tree, WPL
+    Weighted Path Length of Tree, WPL
 
-中位数寻找？TODO
+    中位数寻找？TODO
 
-为什么需要将 友元函数的定义直接写进去 ？ TODO
+    为什么需要将 友元函数的定义直接写进去 ？ TODO
 
 10. 了解一下 Fibonacci 堆，有精力的同学可以尝试实现。
 
@@ -730,4 +789,20 @@ Weighted Path Length of Tree, WPL
 
 28. 教材以 Fleury 算法为主，但是老师更希望实现 希尔霍尔策算法，体会在桥边上有没有更好的策略。
 
-29. 
+29. 实现无向图和有向图的闭包问题
+
+    Floyd 传递闭包、bitset 优化
+
+    Tarjan 传递闭包？
+    
+    Floyd 输出任意 i 到 j 的最短路径？
+
+    Johnson 算法实现？
+    
+30. 小根堆、胜者树、败者树
+
+31. 多路归并排序
+
+32. 实现一个函数，判断一个边是否是桥边。dfs 算法
+
+33. 
