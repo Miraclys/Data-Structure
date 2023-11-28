@@ -4,8 +4,7 @@
 
 3. Computational Geometry: Algorithms and Applications
 
-4. 有什么好的beamer主题和配色方案？ - Dwzb的回答 - 知乎 
-    https://www.zhihu.com/question/29676847/answer/396667384
+4. https://www.zhihu.com/question/29676847/answer/396667384
 
 5. https://en.wikipedia.org/wiki/Range_tree
 
@@ -20,3 +19,21 @@
 10. https://blog.csdn.net/qq_42101694/article/details/122791377
 
 11. https://walker68145.github.io/post/ti-zui-yang-shu-yu-k-dtree/ 关于 kd 树的一些题目，包括 kd 树的重构
+
+12. https://ima.udg.edu/~sellares/ComGeo/RangeTrees4Ms.pdf
+
+13. https://homepages.math.uic.edu/~jan/mcs481/rangesearch.pdf
+
+14. https://users.cs.utah.edu/~lifeifei/cs6931/kdtree.pdf
+
+15. https://copyprogramming.com/howto/range-trees-in-data-structure
+
+16. https://www.luogu.com.cn/blog/xiaoziyaoxzy/fen-san-ceng-die-suan-fa-xue-xi-bi-ji
+
+17. https://zhuanlan.zhihu.com/p/515973512
+
+18. http://data.biancheng.net/view/76.html
+
+19. https://cloud.tencent.com/developer/article/2238630
+
+20. https://www.cnblogs.com/qianye/archive/2012/11/25/2787923.html

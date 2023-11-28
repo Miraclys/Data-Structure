@@ -145,3 +145,15 @@ https://blog.csdn.net/qq_30320171/article/details/129787418
 #### 可持久化的二维数点
 
 #### k-d 树解决 KNN 和数点的复杂度一致吗
+
+#### 外部排序
+
+http://data.biancheng.net/view/76.html
+
+#### 多路归并排序
+
+#### 胜者树和败者树
+
+1. https://cloud.tencent.com/developer/article/2238630
+
+2. https://www.cnblogs.com/qianye/archive/2012/11/25/2787923.html
