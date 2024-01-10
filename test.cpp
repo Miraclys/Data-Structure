@@ -1,89 +1,96 @@
-#include <bits/stdc++.h>
-
-const int N = 1e5 + 5;
-const int inf = 0x3f3f3f3f;
-
-int n, m, t[N << 2], cnt, a[N], ls[N], rs[N], lazy[N], sum[N];
-
-void push_up(int cur) {
-    sum[cur] = sum[ls[cur]] + sum[rs[cur]];
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <cmath>
+using namespace std;
+const double INF = 1e10;
+struct Point {
+	double x, y;
+	int id;//用来查询时避免同一个点求解到自身的距离（针对题目所设置）
+};
+typedef vector<Point> Points;
+struct kdTreeNode {
+	int dim;//切分维度,0是x，1是y
+	kdTreeNode* left;
+	kdTreeNode* right;
+	Point p;
+	kdTreeNode(int d, Point val) :dim(d), p(val), left(NULL), right(NULL) {};
+};
+double dis(Point a, Point b) {
+	if (a.id == b.id) {
+		return INF;
+	}
+	return sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y));
 }
-
-void build(int& cur, int l, int r) {
-    cur = ++cnt;
-    if (l == r) {
-        sum[cur] = a[l];
-        return ;
-    }
-    int mid = (l + r) >> 1;
-    build(ls[cur], l, mid);
-    build(rs[cur], mid + 1, r);
-    push_up(cur);
+kdTreeNode* buildTree(Points& pts, int d,int left,int right) {
+	if (left > right) {
+		return NULL;
+	}
+	d %= 2;
+	int mid = (right - left) / 2 + left;
+	nth_element(pts.begin() + left, pts.begin() + mid, pts.begin() + right+1, [d](Point a, Point b) {return d == 0 ? a.x < b.x :a.y < b.y; });//找到中间点，并且左边小于中间点，右边大于(快速选择算法，时间复杂度O(n))
+	Point p = pts[mid];
+	kdTreeNode* root = new kdTreeNode(d, p);
+	root->left = buildTree(pts, d + 1, left, mid-1);
+	root->right = buildTree(pts,d + 1, mid + 1,right);
+	return root;
 }
-
-int update(int pre, int l, int r, int x, int y, int k) {
-    // std::cout << "sadasdsad";
-    ++cnt;
-    ls[cnt] = ls[pre], rs[cnt] = rs[pre];
-    sum[cnt] = sum[pre] + (std::min(r, y) - std::max(x, l) + 1) * k;
-    // std::cout << sum[cnt] << "asdasda ";
-    lazy[cnt] = lazy[pre];
-    if (l >= x && r <= y) {
-        lazy[cnt] += k;
-        return cnt;
-    }
-    int mid = (l + r) >> 1;
-    if (x <= mid) ls[cnt] = update(ls[pre], l, mid, x, y, k);
-    if (y >= mid + 1) rs[cnt] = update(rs[pre], mid + 1, r, x, y, k);
-    return cnt; 
+void query(kdTreeNode* t, Point target,double& minDis) {
+	if (t == NULL) {
+		return;
+	}
+	if (t->dim == 0) {
+		if (target.x < t->p.x) {
+			query(t->left, target, minDis);
+		}
+		else {
+			query(t->right, target, minDis);
+		}
+		minDis = min(minDis, dis(target, t->p));
+		if (minDis > abs(target.x-t->p.x)) {
+			if (target.x < t->p.x) {
+				query(t->right, target, minDis);
+			}
+			else {
+				query(t->left, target, minDis);
+			}
+		}
+	}
+	else {
+		if (target.y < t->p.y) {
+			query(t->left, target, minDis);
+		}
+		else {
+			query(t->right, target, minDis);
+		}
+		minDis = min(minDis, dis(target, t->p));
+		if (minDis > abs(target.y - t->p.y)) {
+			if (target.y < t->p.y) {
+				query(t->right, target, minDis);
+			}
+			else {
+				query(t->left, target, minDis);
+			}
+		}
+	}
 }
-
-int query(int pre, int l, int r, int x, int y, int s) {
-    // std::cout << s << " asdas";
-    if (l >= x && r <= y) {
-        // std::cout << "asd" << sum[pre] + s * (r - l + 1) << " "
-        return sum[pre] + s * (r - l + 1);
-    }
-    int mid = (l + r) >> 1;
-    int res = 0;
-    if (x <= mid) res += query(ls[pre], l, mid, x, y, s + lazy[pre]);
-    if (y >= mid + 1) res += query(rs[pre], mid + 1, r, x, y, s + lazy[pre]);
-    return res;
-}
-
-void init() {
-    cnt = 0;
-}
-
 int main() {
-    // while (~scanf("%d%d", &n, &m)) {
-        std::cin >> n >> m;
-        init();
-        for (int i = 1; i <= n; ++i) {
-            std::cin >> a[i];
-        }
-        int time = 0;
-        build(t[0], 1, n);
-        // traverse(t[0]);s
-        char o[3];
-        int l, r, v;
-        while (m--) {
-            scanf("%s", o);
-            if (o[0] == 'C') {
-                std::cin >> l >> r >> v;
-                ++time;
-                t[time] = update(t[time - 1], 1, n, l, r, v);
-            } else if (o[0] == 'Q') {
-                std::cin >> l >> r;
-                std::cout << query(t[time], 1, n, l, r, 0) << "\n";
-            } else if (o[0] == 'H') {
-                std::cin >> l >> r >> v;
-                std::cout << query(t[v], 1, n, l, r, 0) << "\n";
-            } else {
-                std::cin >> v;
-                time = v;
-            }
-        }
-    // }
-    return 0;
+	int n;
+	cin >> n;
+	Points a;
+	for (int j = 0; j < n; ++j) {
+		double x, y;
+		cin >> x >> y;
+		a.push_back({ x,y,j });
+	}
+	kdTreeNode* t = buildTree(a, 0, 0, a.size() - 1);
+	double ans = INF;
+	for (int i = 0; i < a.size(); i++) {
+		double minDis = INF;
+		query(t, a[i],minDis);
+		ans = min(ans, minDis);
+	}
+	printf("%.3f", ans);
+	system("pause");
+	return 0;
 }
